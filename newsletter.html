@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scrub Typhus — Global News Updates</title>
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #E8F4FF; color: #333; }
+/* -------- HEADER BASIC STYLE -------- */
+header {
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0088cc;
+}
+
+/* NAV LINKS */
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #0088cc;
+}
+
+/* -------- MOBILE MENU -------- */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* MOBILE VIEW */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+        color: #0088cc;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 65px;
+        right: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0;
+        display: none;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-links li {
+        padding: 12px 0;
+    }
+
+    .nav-links.show {
+        display: block;
+        animation: fadeDown 0.3s ease-in-out;
+    }
+
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+  header {
+    background: linear-gradient(90deg, #1E90FF, #00BFFF);
+    color: white;
+    text-align: center;
+    padding: 22px 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  }
+
+  main {
+    max-width: 1050px;
+    margin: 30px auto;
+    padding: 0 15px;
+  }
+
+  /* Loader */
+  #news-container .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160px;
+  }
+  .loader div {
+    width: 14px; height: 14px;
+    margin: 4px;
+    background: #1E90FF;
+    border-radius: 50%;
+    animation: bounce 0.6s infinite alternate;
+  }
+  .loader div:nth-child(2) { animation-delay: 0.2s; }
+  .loader div:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes bounce { 
+    to { transform: translateY(-14px); } 
+  }
+
+  /* News Card */
+  .news-item {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 22px;
+    box-shadow: 0 5px 14px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+    transition: 0.25s;
+  }
+  .news-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  }
+
+  .news-item img {
+    width: 100%;
+    max-height: 240px;
+    object-fit: cover;
+  }
+
+  .news-content {
+    padding: 18px;
+  }
+
+  .news-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    color: #0074D9;
+  }
+
+  .news-content p {
+    margin-bottom: 10px;
+    color: #555;
+  }
+
+  .news-content a {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #1E90FF;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: 0.2s;
+  }
+
+  .news-content a:hover { background: #007ACC; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #777;
+  }
+
+  @media (min-width: 600px) {
+    .news-item { flex-direction: row; }
+    .news-item img { width: 38%; }
+    .news-content { width: 62%; padding: 22px; }
+  }
+</style>
+
+</head>
+<body>
+
+<header>
+    <nav class="navbar">
+        <div class="logo">Scrub Typhus</div>
+
+        <div class="menu-icon" onclick="toggleMenu()">
+            &#9776;
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="self.html">Self Assessment</a></li>
+            <li><a href="predict.html">Predict Cases</a></li>
+            <li><a href="nearby.html">Nearby Diagnostic</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<main>
+  <div id="news-container">
+    <div class="loader">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+</main>
+
+<footer>Powered by NewsData.io • Global Health Feed</footer>
+
+<script>
+const API_KEY = "pub_e9419db1dbb3403ea0ebf8df650e457f";
+
+/* Expanded global keywords */
+const KEYWORDS = encodeURIComponent(
+  "scrub typhus OR tsutsugamushi OR mite-borne fever OR rickettsia"
+);
+
+/* Last 3 months date range */
+const today = new Date();
+const pastDate = new Date();
+pastDate.setMonth(today.getMonth() - 3);
+
+const fromDate = pastDate.toISOString().split("T")[0];
+
+const NEWS_CONTAINER = document.getElementById("news-container");
+
+async function fetchNews() {
+  try {
+    const url = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&q=${KEYWORDS}&from_date=${fromDate}&language=en&country=us,in,uk,au,ca,sg,za,id,ph,bd`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.results && data.results.length > 0) {
+      displayNews(data.results);
+    } else {
+      NEWS_CONTAINER.innerHTML = `
+        <p style="text-align:center; padding:20px; font-size:1.1rem;">
+          No scrub typhus related news found in the last 3 months.<br>
+          Please check again later.
+        </p>`;
+    }
+  } catch (error) {
+    NEWS_CONTAINER.innerHTML = `
+      <p style="text-align:center; padding:20px; font-size:1.1rem;">
+        Error fetching news. Please try again later.
+      </p>`;
+  }
+}
+
+function displayNews(articles) {
+  NEWS_CONTAINER.innerHTML = "";
+
+  articles.forEach(article => {
+    const card = document.createElement("div");
+    card.className = "news-item";
+
+    const imgHTML = article.image_url
+      ? `<img src="${article.image_url}" alt="News Image">`
+      : `<img src="https://via.placeholder.com/400x220/ADD8E6/000?text=No+Image" alt="">`;
+
+    card.innerHTML = `
+      ${imgHTML}
+      <div class="news-content">
+        <h2>${article.title}</h2>
+        <p>${article.description || "No description available."}</p>
+        <a href="${article.link}" target="_blank">Read Full Article</a>
+      </div>
+    `;
+    NEWS_CONTAINER.appendChild(card);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", fetchNews);
+</script>
+
+</body>
+</html>

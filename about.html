@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - STAR</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: #f0f8ff;
+            color: #333;
+        }
+
+        /* ===================================
+           Correct Navbar (Mobile Responsive)
+        ===================================*/
+        header {
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #1a73e8;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: #1a73e8;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 28px;
+            color: #1a73e8;
+            cursor: pointer;
+        }
+
+        /* ===== Mobile Responsive ===== */
+      .menu-icon {
+            display: none;
+            font-size: 28px;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                background: var(--blue);
+                flex-direction: column;
+                text-align: center;
+                padding: 20px 0;
+                display: none;
+            }
+
+            nav ul li {
+                margin: 15px 0;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+        }
+
+
+        /* About Section */
+        .about-section {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            line-height: 1.8;
+        }
+
+        .about-section h1 {
+            font-size: 3rem;
+            color: #1e90ff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .about-section p {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .about-section strong {
+            color: #1e90ff;
+        }
+
+        .about-section ul {
+            margin-left: 20px;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e90ff;
+            color: white;
+            margin-top: 50px;
+        }
+
+        /* Responsive text */
+        @media (max-width: 768px) {
+            .about-section h1 {
+                font-size: 2.2rem;
+            }
+
+            .about-section p,
+            .about-section ul {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">Scrub Typhus</div>
+
+        <div class="menu-icon" onclick="toggleMenu()">
+            &#9776;
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="self.html">Self Assessment</a></li>
+            <li><a href="prediction.html">Predict Cases</a></li>
+            <li><a href="nearby.html">Nearby Diagnostic</a></li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+}
+</script>
+
+<!-- About Section -->
+<section class="about-section">
+    <h1>About STAR</h1>
+
+    <p>
+        <strong>STAR</strong> (Scrub Typhus Awareness & Risk Prediction) is a platform designed
+        to raise awareness, support early detection, and assist in tracking Scrub Typhus cases.
+        Our goal is to empower communities, individuals, and healthcare workers with accurate
+        insights to reduce the spread of Scrub Typhus.
+    </p>
+
+    <p>
+        Scrub Typhus is caused by the <strong>Orientia tsutsugamushi</strong> bacteria and is transmitted
+        through bites from infected chiggers. Early diagnosis and awareness are essential, and STAR
+        provides tools that make this easier.
+    </p>
+
+    <p><strong>Key Features of STAR:</strong></p>
+    <ul>
+        <li><strong>Nearby Case Tracker:</strong> Locate nearby Scrub Typhus hotspots using interactive maps.</li>
+        <li><strong>Self Assessment:</strong> Instantly evaluate your risk level based on your symptoms.</li>
+        <li><strong>Prediction System:</strong> AI-based outbreak forecasting using climate and past case data.</li>
+        <li><strong>Diagnostic Centers:</strong> Quickly find nearby hospitals and test centers.</li>
+    </ul>
+
+    <p>
+        STAR is fully optimized for mobile, tablet, and desktop use. Our mission is to combine
+        technology with healthcare to fight Scrub Typhus effectively and globally.
+    </p>
+</section>
+
+<!-- Footer -->
+<footer>
+    © 2025 STAR - Scrub Typhus Prediction System
+</footer>
+
+</body>
+</html>

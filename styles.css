@@ -1,0 +1,45 @@
+/* STAR — styles for clarity and accessibility */
+:root{
+  --primary:#0b5ed7;
+  --accent:#0d6efd;
+  --bg:#f8fbff;
+  --card:#ffffff;
+  --text:#0b1720;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding-bottom:3rem;
+}
+
+.navbar-brand{letter-spacing:0.6px}
+
+.hero{
+  background: linear-gradient(180deg,var(--primary), #2563eb);
+  padding:4rem 0;
+  color: #fff;
+}
+
+.card{border-radius:12px; box-shadow:0 6px 18px rgba(13,42,86,0.08);}
+
+.container h2{color:var(--primary)}
+
+.form-label{font-weight:600}
+input, select, .btn{font-size:1rem}
+
+/* High contrast result badges */
+.risk-low{background:#e6fffa;color:#065f46;padding:0.6rem;border-radius:8px}
+.risk-mod{background:#fff7ed;color:#92400e;padding:0.6rem;border-radius:8px}
+.risk-high{background:#fff1f2;color:#9f1239;padding:0.6rem;border-radius:8px}
+
+/* Responsive tweaks */
+@media (max-width:576px){
+  .hero{padding:3rem 1rem}
+  .display-6{font-size:1.8rem}
+}

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Self Assessment - STAR</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: #f0f8ff;
+      color: #333;
+    }
+
+    /* ===============================
+       NAVBAR
+    =============================== */
+    header {
+      width: 100%;
+      background: #00aaff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+
+    .logo-text {
+      color: #fff;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links li a:hover {
+      color: #e8f7ff;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: #00aaff;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0;
+        display: none;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.show {
+        display: block;
+        animation: fadeDown 0.3s ease;
+      }
+
+      @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    /* ===============================
+       SELF ASSESSMENT FORM
+    =============================== */
+    .assessment-section {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .assessment-section h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #00aaff;
+    }
+
+    .question {
+      margin-bottom: 20px;
+    }
+
+    .question label {
+      font-weight: 500;
+      font-size: 1.1rem;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .question input[type="radio"] {
+      margin-right: 10px;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto 10px auto;
+      padding: 12px 20px;
+      background: #00aaff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0077cc;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #00aaff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #00aaff;
+      color: white;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="STAR Logo">
+      <span class="logo-text">STAR</span>
+    </div>
+
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="self.html">Self Assessment</a></li>
+      <li><a href="predict.html">Predict Cases</a></li>
+      <li><a href="nearby.html">Nearby Diagnostic</a></li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+  }
+</script>
+
+<!-- Self Assessment Section -->
+<section class="assessment-section">
+  <h1>Scrub Typhus Self Assessment</h1>
+
+  <form id="assessmentForm">
+
+    <div class="question">
+      <label>1. Do you have a fever?</label>
+      <input type="radio" name="q1" value="10" required> Yes
+      <input type="radio" name="q1" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>2. Do you have cough?</label>
+      <input type="radio" name="q2" value="10" required> Yes
+      <input type="radio" name="q2" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>3. Do you have abdominal discomfort?</label>
+      <input type="radio" name="q3" value="10" required> Yes
+      <input type="radio" name="q3" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>4. Do you have a rash?</label>
+      <input type="radio" name="q4" value="10" required> Yes
+      <input type="radio" name="q4" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>5. Have you been exposed to dense vegetation or bushes recently?</label>
+      <input type="radio" name="q5" value="10" required> Yes
+      <input type="radio" name="q5" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>6. Have you noticed any eschar (dark scab) on the skin?</label>
+      <input type="radio" name="q6" value="10" required> Yes
+      <input type="radio" name="q6" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>7. Are you feeling fatigue or weakness?</label>
+      <input type="radio" name="q7" value="10" required> Yes
+      <input type="radio" name="q7" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>8. Do you have chills?</label>
+      <input type="radio" name="q8" value="10" required> Yes
+      <input type="radio" name="q8" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>9. Have you recently traveled to areas known for Scrub Typhus outbreaks?</label>
+      <input type="radio" name="q9" value="10" required> Yes
+      <input type="radio" name="q9" value="0"> No
+    </div>
+
+    <div class="question">
+      <label>10. Do you have eschar (dark, scab-like region)?</label>
+      <input type="radio" name="q10" value="10" required> Yes
+      <input type="radio" name="q10" value="0"> No
+    </div>
+
+    <button type="submit">Calculate Risk</button>
+  </form>
+
+  <div id="result"></div>
+</section>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 STAR - Scrub Typhus Prediction System
+</footer>
+
+<!-- Assessment Script -->
+<script>
+document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  let totalScore = 0;
+  for (let i = 1; i <= 10; i++) {
+    const options = document.getElementsByName('q' + i);
+    for (const opt of options) {
+      if (opt.checked) totalScore += parseInt(opt.value);
+    }
+  }
+
+  let riskMessage = "";
+  if (totalScore >= 70) {
+    riskMessage = `High Risk: ${totalScore}% — Please consult a doctor immediately.`;
+  } else if (totalScore >= 40) {
+    riskMessage = `Moderate Risk: ${totalScore}% — Monitor symptoms & take precautions.`;
+  } else {
+    riskMessage = `Low Risk: ${totalScore}% — Maintain hygiene & avoid exposure.`;
+  }
+
+  document.getElementById('result').innerText = riskMessage;
+});
+</script>
+
+</body>
+</html>

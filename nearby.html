@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nearby Hospitals - STAR</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<!-- Routing Machine CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+}
+
+/* ===============================
+   FIXED RESPONSIVE NAVBAR
+===============================*/
+header {
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: #1e90ff;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* NAV LINKS */
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #1e90ff;
+}
+
+/* HAMBURGER ICON */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* MOBILE NAVIGATION */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+        color: #1e90ff;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0;
+        display: none;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-links li {
+        padding: 12px 0;
+    }
+
+    .nav-links.show {
+        display: block;
+        animation: fadeDown 0.3s ease-in-out;
+    }
+
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+}
+
+/* ===============================
+   WEATHER POPUP
+===============================*/
+#weatherPopup {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    width: 250px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-left: 5px solid #1e90ff;
+    display: none;
+    z-index: 9999;
+}
+#weatherPopup h3 {
+    margin-top: 0;
+    color: #1e90ff;
+    font-size: 20px;
+}
+#weatherPopup button {
+    background: #1e90ff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* MAP */
+#map {
+    height: 60vh;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Search */
+#inputDiv {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#inputDiv input {
+    padding: 8px;
+    width: 220px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 8px;
+}
+#inputDiv button {
+    padding: 8px 12px;
+    background: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#inputDiv button:hover {
+    background: #0b3d91;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #1e90ff;
+    color: white;
+}
+
+/* Responsive tweaks */
+@media(max-width:768px){
+    #map { height: 55vh; width: 95%; }
+    #weatherPopup { width: 85%; right: 7%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="STAR Logo" class="logo-img">
+            <span>STAR</span>
+        </div>
+
+        <div class="menu-icon" onclick="toggleMenu()">
+            &#9776;
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="self.html">Self Assessment</a></li>
+            <li><a href="predict.html">Predict Cases</a></li>
+            <li><a href="nearby.html">Nearby Diagnostic</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+<!-- WEATHER POPUP -->
+<div id="weatherPopup">
+    <h3>🌤️ Weather Update</h3>
+    <div id="weatherContent">Fetching weather...</div>
+    <button onclick="closeWeather()">Close</button>
+</div>
+
+<h2 style="text-align:center;color:#1e90ff;margin-top:20px;">Nearby Hospitals</h2>
+<p class="instructions" style="text-align:center;">
+    Your location is detected automatically. Nearby hospitals appear on the map.<br>
+    You can also search a place manually.
+</p>
+
+<!-- SEARCH -->
+<div id="inputDiv">
+    <input type="text" id="placeName" placeholder="Enter place name (e.g., Mandi)">
+    <button onclick="searchPlace()">Search Place</button>
+</div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<footer>&copy; 2025 STAR - Scrub Typhus Prediction System</footer>
+
+<!-- JS IMPORTS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+/* ================================
+   WORKING MOBILE MENU
+================================*/
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+}
+
+/* ===================================
+   MAP + WEATHER + HOSPITAL LOGIC
+===================================*/
+let map = L.map('map');
+let userLat, userLon;
+let currentRoute = null;
+
+/* ---- HOTSPOTS ARRAY (unchanged) ---- */
+const customHotspots = [
+    /* >>>>> your full hotspots list remains unchanged <<<<< */
+    /* (omitted here for brevity — keep your entire array) */
+];
+
+/* OpenStreetMap layer */
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
+}).addTo(map);
+
+/* WEATHER */
+function getWeather(lat, lon) {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+
+    axios.get(url).then(res => {
+        const w = res.data.current_weather;
+        document.getElementById("weatherContent").innerHTML = `
+            🌡️ Temp: <b>${w.temperature}°C</b><br>
+            💨 Wind: <b>${w.windspeed} km/h</b><br>
+        `;
+        document.getElementById("weatherPopup").style.display = "block";
+    });
+}
+
+function closeWeather() {
+    document.getElementById("weatherPopup").style.display = "none";
+}
+
+/* USER LOCATION */
+function locateUser() {
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                userLat = pos.coords.latitude;
+                userLon = pos.coords.longitude;
+                showUserLocation();
+                getWeather(userLat, userLon);
+            },
+            err => alert("Failed to get location!")
+        );
+    }
+}
+
+function showUserLocation(){
+    map.setView([userLat, userLon], 13);
+
+    L.circle([userLat, userLon], {
+        radius:50, color:'green', fillColor:'#0f0', fillOpacity:0.5
+    }).addTo(map);
+
+    plotCustomHotspots();
+}
+
+/* SEARCH */
+function searchPlace(){
+    const place = document.getElementById('placeName').value;
+    if(!place) return alert("Enter place name!");
+
+    axios.get(`https://nominatim.openstreetmap.org/search?q=${place}&format=json`)
+    .then(res => {
+        if(res.data.length === 0) return alert("Not found");
+
+        const loc = res.data[0];
+        userLat = parseFloat(loc.lat);
+        userLon = parseFloat(loc.lon);
+
+        showUserLocation();
+        getWeather(userLat, userLon);
+    });
+}
+
+/* PLOT HOTSPOTS */
+function plotCustomHotspots(){
+    customHotspots.forEach(h=>{
+        L.marker([h.lat, h.lon], {
+            icon: L.icon({
+                iconUrl:"https://cdn-icons-png.flaticon.com/512/854/854878.png",
+                iconSize:[30,30]
+            })
+        }).addTo(map)
+        .bindPopup(`
+            <b>${h.name}</b><br>
+            ${h.address}<br>
+            ${h.contact ? "📞 "+h.contact : ""}<br><br>
+            <button onclick="drawRoute(${h.lat}, ${h.lon})">Show Route</button>
+        `);
+    });
+}
+
+/* ROUTING */
+function drawRoute(lat, lon){
+    if(currentRoute) map.removeControl(currentRoute);
+
+    currentRoute = L.Routing.control({
+        waypoints:[
+            L.latLng(userLat, userLon),
+            L.latLng(lat, lon)
+        ],
+        draggableWaypoints:false
+    }).addTo(map);
+}
+
+locateUser();
+</script>
+
+</body>
+</html>

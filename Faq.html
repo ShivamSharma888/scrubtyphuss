@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - STAR</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --blue: #00aaff;
+            --dark-blue: #0077cc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #f5faff;
+            color: #333;
+        }
+
+        /* ============================
+            HEADER + NAVBAR
+        ============================ */
+        header {
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: auto;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 45px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: var(--blue);
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--blue);
+        }
+
+        /* ============================
+            MOBILE MENU
+        ============================ */
+        @media (max-width: 768px) {
+            .menu-icon {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                text-align: center;
+                padding: 15px 0;
+                display: none;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links li {
+                padding: 12px 0;
+            }
+
+            .nav-links.show {
+                display: flex;
+                animation: fadeDown 0.3s ease-in-out;
+            }
+
+            @keyframes fadeDown {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            .logo img {
+                height: 38px;
+            }
+
+            .logo-text {
+                font-size: 22px;
+            }
+        }
+
+        /* ============================
+            FAQ SECTION
+        ============================ */
+        .faq-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+        }
+
+        .faq-section h1 {
+            text-align: center;
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+
+        .faq-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 20px;
+            color: var(--dark-blue);
+            transition: 0.3s;
+        }
+
+        .faq-question.active::after {
+            content: "-";
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding-left: 10px;
+            transition: max-height 0.35s ease;
+        }
+
+        .faq-answer p {
+            font-size: 0.95rem;
+            margin-top: 10px;
+            color: #444;
+        }
+
+        /* ============================
+            FOOTER
+        ============================ */
+        footer {
+            background: var(--dark-blue);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+        }
+
+        /* ============================
+            MOBILE RESPONSIVENESS
+        ============================ */
+        @media (max-width: 768px) {
+            .faq-section {
+                margin: 30px 15px;
+                padding: 20px;
+            }
+
+            .faq-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .faq-question {
+                font-size: 1rem;
+            }
+        }
+        /* ===============================
+   ROOT VARIABLES
+=============================== */
+:root {
+    --blue: #00aaff;
+    --dark-blue: #0077cc;
+}
+
+/* ===============================
+   GLOBAL RESET
+=============================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ===============================
+   HEADER + NAVBAR
+=============================== */
+header {
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    max-width: 1200px;
+    margin: auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+/* NAVIGATION LINKS */
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: var(--blue);
+}
+
+/* MOBILE MENU ICON */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--blue);
+}
+
+/* ===============================
+   MOBILE RESPONSIVENESS
+=============================== */
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 0;
+        display: none;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-links li {
+        padding: 12px 0;
+    }
+
+    .nav-links.show {
+        display: flex;
+        animation: fadeDown 0.3s ease-in-out;
+    }
+
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo img {
+        height: 38px;
+    }
+
+    .logo-text {
+        font-size: 22px;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="logo.png" alt="STAR Logo">
+                <span class="logo-text">STAR</span>
+            </div>
+
+            <div class="menu-icon" onclick="toggleMenu()">
+                &#9776;
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="self.html">Self Assessment</a></li>
+                <li><a href="predict.html">Predict Cases</a></li>
+                <li><a href="nearby.html">Nearby Diagnostic</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-item">
+            <div class="faq-question">What is Scrub Typhus?</div>
+            <div class="faq-answer">
+                <p>Scrub Typhus is caused by the bacteria <i>Orientia tsutsugamushi</i>, transmitted through infected chigger mites.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How does it spread?</div>
+            <div class="faq-answer">
+                <p>It spreads through bites of infected chiggers — not from person to person.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What are the symptoms?</div>
+            <div class="faq-answer">
+                <p>Fever, rash, headache, body ache, weakness, and an eschar at the bite site.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How can I prevent Scrub Typhus?</div>
+            <div class="faq-answer">
+                <p>Use insect repellent, wear full clothing, avoid bushes, and inspect skin after outdoor activity.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Where can I find medical help?</div>
+            <div class="faq-answer">
+                <p>You can use the STAR “Nearby Hospitals” feature to find hospitals and labs instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 STAR — Scrub Typhus Prediction System
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        // FAQ Toggle
+        const questions = document.querySelectorAll('.faq-question');
+
+        questions.forEach(q => {
+            q.addEventListener('click', () => {
+                q.classList.toggle('active');
+                const answer = q.nextElementSibling;
+                answer.style.maxHeight = answer.style.maxHeight ? null : answer.scrollHeight + "px";
+            });
+        });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            document.getElementById("navLinks").classList.toggle("show");
+        }
+    </script>
+
+</body>
+</html>
